@@ -100,6 +100,104 @@ section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] h2 {font-si
 [data-testid="stAlert"] {background:#182732!important;}
 [data-testid="stPlotlyChart"] {border:1px solid #293644;border-radius:16px;overflow:hidden;background:#151C25;}
 
+
+/* DENGUEGUARD MOTION LAYER — CSS-only; prediction logic unchanged */
+@keyframes dg-hero-arrive {
+  from { opacity:0; transform:translateY(16px); }
+  to { opacity:1; transform:translateY(0); }
+}
+@keyframes dg-aura-drift {
+  0%,100% { transform:translate3d(0,0,0) scale(1); opacity:.55; }
+  50% { transform:translate3d(-22px,18px,0) scale(1.13); opacity:.9; }
+}
+@keyframes dg-panel-arrive {
+  from {opacity:0;transform:translateY(8px)}
+  to {opacity:1;transform:translateY(0)}
+}
+.dg-hero {
+  isolation:isolate;
+  animation:dg-hero-arrive .8s cubic-bezier(.2,.8,.2,1) both;
+  transition:border-color .35s ease,box-shadow .35s ease,transform .35s ease;
+}
+.dg-hero::before {
+  content:"";position:absolute;z-index:-1;pointer-events:none;
+  width:370px;height:370px;right:-90px;bottom:-235px;border-radius:50%;
+  background:radial-gradient(circle,rgba(46,196,182,.23),transparent 68%);
+  filter:blur(14px);animation:dg-aura-drift 9s ease-in-out infinite;
+}
+.dg-hero:hover {border-color:#3F7778;box-shadow:0 20px 60px rgba(0,0,0,.2),0 0 36px rgba(46,196,182,.07);}
+/* Native Streamlit cards: hover transforms do not replace their widgets. */
+[data-testid="stMetric"],
+[data-testid="stVerticalBlockBorderWrapper"],
+[data-testid="stPlotlyChart"] {
+  position:relative;
+  transition:transform .32s cubic-bezier(.2,.8,.2,1),
+    box-shadow .32s ease,border-color .32s ease !important;
+  will-change:auto;
+}
+[data-testid="stMetric"]:hover,
+[data-testid="stVerticalBlockBorderWrapper"]:hover,
+[data-testid="stPlotlyChart"]:hover {
+  transform:translateY(-5px) scale(1.012);
+  border-color:#438F8B !important;
+  box-shadow:0 16px 36px rgba(0,0,0,.28),0 0 24px rgba(46,196,182,.10) !important;
+  z-index:2;
+}
+/* Slightly stronger lift for individual ward and city cards. */
+[data-testid="stVerticalBlockBorderWrapper"]:hover [data-testid="stMetricValue"] {
+  color:#76E8DC !important;
+}
+.stTabs [data-baseweb="tab"] {
+  border-radius:10px 10px 0 0;
+  transition:background .25s ease,color .25s ease,transform .25s ease;
+}
+.stTabs [data-baseweb="tab"]:hover {
+  background:rgba(46,196,182,.09) !important;
+  color:#7BE9DD !important;
+  transform:translateY(-2px);
+}
+.stTabs [data-baseweb="tab-panel"] {
+  animation:dg-panel-arrive .36s ease-out both;
+}
+.stButton > button, [data-testid="stBaseButton-primary"],
+[data-testid="stBaseButton-secondary"] {
+  transition:transform .24s ease,box-shadow .24s ease,border-color .24s ease !important;
+}
+.stButton > button:hover {
+  transform:translateY(-3px);
+  box-shadow:0 10px 24px rgba(46,196,182,.17) !important;
+  border-color:#4ED3C5 !important;
+}
+.stButton > button:active {transform:translateY(0) scale(.985);}
+section[data-testid="stSidebar"] div[data-baseweb="select"] > div,
+[data-testid="stNumberInput"] div[data-baseweb="input"] > div {
+  transition:border-color .22s ease,box-shadow .22s ease;
+}
+section[data-testid="stSidebar"] div[data-baseweb="select"] > div:hover,
+[data-testid="stNumberInput"] div[data-baseweb="input"] > div:hover {
+  border-color:#4C9C96 !important;
+  box-shadow:0 0 0 2px rgba(46,196,182,.08);
+}
+/* Keep pop-out cards from causing sideways scrolling on narrow screens. */
+@media (max-width:700px) {
+  [data-testid="stMetric"]:hover,
+  [data-testid="stVerticalBlockBorderWrapper"]:hover,
+  [data-testid="stPlotlyChart"]:hover {transform:translateY(-3px);}
+  .dg-hero {padding:28px 24px 30px;}
+}
+@media (prefers-reduced-motion:reduce) {
+  .dg-hero,.dg-hero::before,.stTabs [data-baseweb="tab-panel"] {animation:none !important;}
+  .dg-hero,[data-testid="stMetric"],
+  [data-testid="stVerticalBlockBorderWrapper"],
+  [data-testid="stPlotlyChart"],.stTabs [data-baseweb="tab"],
+  .stButton > button {transition:none !important;}
+  [data-testid="stMetric"]:hover,
+  [data-testid="stVerticalBlockBorderWrapper"]:hover,
+  [data-testid="stPlotlyChart"]:hover,
+  .stTabs [data-baseweb="tab"]:hover,
+  .stButton > button:hover {transform:none !important;}
+}
+
 </style>
 """, unsafe_allow_html=True)
 
