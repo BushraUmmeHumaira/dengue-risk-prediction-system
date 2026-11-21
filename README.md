@@ -25,11 +25,12 @@ Weekly data for 20 wards in 3 cities, 2016-2025 (10,440 rows): weather, ward con
 Logistic Regression, Random Forest, XGBoost, LightGBM and a neural network (MLP). They are trained on 2016-2023 and tested on 2024-2025, and compared with accuracy, precision, recall, F1 and ROC-AUC. See docs/models.md.
 
 ## How to run
-Requires Python 3.
 ```
 python -m venv venv
 venv\Scripts\activate
 pip install -r requirements.txt
+python src/clean_data.py
+python src/feature_report.py
 python src/train.py
 streamlit run app/app.py
 ```
