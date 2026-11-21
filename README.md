@@ -3,14 +3,14 @@
 Predicts the probability of a high-risk dengue week for each ward in Chattogram, Gazipur and Narayanganj, using weekly weather, ward conditions and past cases. We use classical statistical ML and a small neural network, with no LLM or generative AI in the prediction pipeline.
 
 ## Team
-- Bushra Umme Humaira - data cleaning and feature engineering
+- Bushra Umme Humaira - Data cleaning and feature engineering
 - Sidratul Muntaha - Machine learning prediction engine
 - Athkia Tabassum Chowdhury - Streamlit dashboard
 
 ## Architecture
 ```mermaid
 flowchart LR
-    A[Dengue dataset CSV] --> B[Preprocessing]
+    A[Raw dengue CSV] --> B[Data cleaning and validation]
     B --> C[Feature engineering]
     C --> D[Train 5 models]
     D --> E[Evaluate and select best]
